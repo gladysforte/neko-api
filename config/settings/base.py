@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import configparser
 import datetime
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -93,14 +94,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': config['SETTINGS']['DATABASE_ENGINE'],
+#         'NAME': config['SETTINGS']['DATABASE_NAME'],
+#         'USER': config['SETTINGS']['DATABASE_USER'],
+#         'PASSWORD': config['SETTINGS']['DATABASE_PASSWORD'],
+#         'HOST': config['SETTINGS']['DATABASE_HOST'],
+#         'PORT': config['SETTINGS']['DATABASE_PORT'],
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': config['SETTINGS']['DATABASE_ENGINE'],
-        'NAME': config['SETTINGS']['DATABASE_NAME'],
-        'USER': config['SETTINGS']['DATABASE_USER'],
-        'PASSWORD': config['SETTINGS']['DATABASE_PASSWORD'],
-        'HOST': config['SETTINGS']['DATABASE_HOST'],
-        'PORT': config['SETTINGS']['DATABASE_PORT'],
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -195,5 +204,6 @@ JWT_AUTH = {
 
 }
 
+django_heroku.settings(locals())
 
 
